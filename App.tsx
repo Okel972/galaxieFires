@@ -33,7 +33,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
         {user ? (
-          <Stack.Screen name="Inside" component={InsideLayout} options={{ headerShown: false }}></Stack.Screen>
+        <Stack.Screen name="Inside" component={InsideLayout} options={{ headerShown: false }}></Stack.Screen>
         ) : (
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}></Stack.Screen>
         )}

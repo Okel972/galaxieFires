@@ -1,7 +1,7 @@
 import { View, TextInput, StyleSheet, ActivityIndicator, Button, KeyboardAvoidingView } from 'react-native'
 import React, { useState } from 'react'
 import { FIREBASE_AUTH } from '../../FirebaseConfig'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, fetchSignInMethodsForEmail } from 'firebase/auth'
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -12,29 +12,35 @@ const Login = () => {
     const signIn = async () => {
         setLoading(true);
         try {
-            const response = await createUserWithEmailAndPassword(auth, email, password);
+            const response = await signInWithEmailAndPassword(auth, email, password);
             console.log(response);
         } catch (error: any) {
-            console.log(error);
-            alert('Sign in failed: ' + error.message)
+            console.error(error);
+            alert('Sign in failed: ' + error.message);
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     const signUp = async () => {
         setLoading(true);
         try {
-            const response = await signInWithEmailAndPassword(auth, email, password);
-            console.log(response);
-            alert('Check your emails!')
+            const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+    
+            if (signInMethods.length === 0) {
+                const response = await createUserWithEmailAndPassword(auth, email, password);
+                console.log(response);
+                alert('Check your emails!');
+            } else {
+                alert('An account already exists with this email. Please sign in.');
+            }
         } catch (error: any) {
-            console.log(error);
-            alert('Sign in failed: ' + error.message)
+            console.error(error);
+            alert('Sign up failed: ' + error.message);
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     return (
         <View style={styles.container}>
