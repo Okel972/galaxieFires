@@ -1,7 +1,23 @@
-import { View, TextInput, StyleSheet, ActivityIndicator, Button, KeyboardAvoidingView } from 'react-native'
+import {
+    View,
+    TextInput, 
+    StyleSheet, 
+    ActivityIndicator, 
+    Button, 
+    KeyboardAvoidingView 
+} from 'react-native'
+
 import React, { useState } from 'react'
+
 import { FIREBASE_AUTH } from '../../FirebaseConfig'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, fetchSignInMethodsForEmail } from 'firebase/auth'
+
+import {
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword, 
+    fetchSignInMethodsForEmail 
+} from 'firebase/auth'
+
+const Separator = () => <View style={styles.separator} />;
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -46,14 +62,15 @@ const Login = () => {
         <View style={styles.container}>
             <KeyboardAvoidingView behavior="padding">
                 <TextInput value={email} style={styles.input} placeholder='Email' autoCapitalize='none' onChangeText={(text) => setEmail(text)}></TextInput>
-                <TextInput secureTextEntry={true} value={password} style={styles.input} placeholder='password' autoCapitalize='none' onChangeText={(text) => setPassword(text)}></TextInput>
+                <TextInput secureTextEntry={true} value={password} style={styles.input2} placeholder='Password' autoCapitalize='none' onChangeText={(text) => setPassword(text)}></TextInput>
 
                 { loading ? (
                     <ActivityIndicator size="large" color="#0000ff" />
                 ) : (
                 <> 
-                    < Button title="Login" onPress={signIn} />
-                    < Button title="Create account" onPress={signUp} />
+                    < Button  title="Login" onPress={signIn} />
+                    <Separator />
+                    < Button color="#f194ff" title="Create account" onPress={signUp} />
                 </>
                 )}
             </KeyboardAvoidingView>
@@ -76,5 +93,22 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         padding: 10,
         backgroundColor: '#fff'
-    }
+    },
+    input2: {
+        margin: 4,
+        height: 50,
+        borderWidth: 1,
+        borderRadius: 4,
+        padding: 10,
+        backgroundColor: '#fff',
+        marginBottom: 20
+    },
+    button: {
+        backgroundColor: '#fff'
+    },
+    separator: {
+        marginVertical: 8,
+        borderBottomColor: '#737373',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+      }
 })

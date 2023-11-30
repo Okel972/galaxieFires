@@ -6,6 +6,8 @@ import Details from './app/screens/Details'
 import { User, onAuthStateChanged } from 'firebase/auth'
 import React, { useState, useEffect } from 'react'
 import { FIREBASE_AUTH } from './FirebaseConfig'
+import { StyleSheet, SafeAreaView, Text, View, Pressable, TextInput } from 'react-native'
+import ShoppingItems from './app/screens/ShoppingItems'
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +17,7 @@ function InsideLayout() {
   return (
     <InsideStack.Navigator>
       <InsideStack.Screen name="My todos" component={List}></InsideStack.Screen>
-      <InsideStack.Screen name="Details" component={Details}></InsideStack.Screen>
+      <InsideStack.Screen name="ShoppingItems" component={ShoppingItems}></InsideStack.Screen>
     </InsideStack.Navigator>
   )
 }
